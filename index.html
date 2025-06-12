@@ -1,19 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matriz de Habilidades</title>
+  <title>Desempeño Sorteo-DMY4</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()">Modo Oscuro/Claro</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Modo Oscuro/Claro</button>
   <div class="container">
-    <h1 class="futuristic-glow">Matriz de Desempeño</h1>
-    <div id="cardsContainer" class="fade-in"></div>
+    <h1 class="futuristic-glow">Desempeño Sorteo-DMY4</h1>
+
+    <div class="controls">
+      <input type="text" id="filtroEmpleado" placeholder="Filtrar por empleado">
+      <select id="filtroHabilidad">
+        <option value="">Todas las habilidades</option>
+        <option value="Rate">Rate</option>
+        <option value="FSAF">FSAF</option>
+        <option value="Cantidad">Cantidad</option>
+        <option value="Horas">Horas</option>
+      </select>
+      <button id="descargarDatos" class="futuristic-button">Descargar datos</button>
+    </div>
+
+    <div id="vistaEscritorio">
+      <table>
+        <thead>
+          <tr>
+            <th>Empleado</th>
+            <th>Rate</th>
+            <th>FSAF</th>
+            <th>Cantidad</th>
+            <th>Horas</th>
+          </tr>
+        </thead>
+        <tbody id="skillTable"></tbody>
+      </table>
+    </div>
+
+    <div id="vistaMovil" style="display: none;">
+      <div id="cardsContainer"></div>
+    </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
