@@ -62,7 +62,6 @@ function renderTabla(data) {
       <td>${emp.fsaf}</td>
       <td>${emp.cantidad}</td>
       <td>${emp.horas}</td>
-      <td>${emp.DPMO}</td>
     `;
     tbody.appendChild(tr);
   });
