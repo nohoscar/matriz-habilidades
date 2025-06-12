@@ -1,34 +1,7 @@
-document.getElementById("inputExcel").addEventListener("change", leerExcel);
-
-function leerExcel(event) {
-  const archivo = event.target.files[0];
-  if (!archivo) return;
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const data = new Uint8Array(e.target.result);
-    const workbook = XLSX.read(data, { type: "array" });
-    const hoja = workbook.Sheets[workbook.SheetNames[0]];
-    const json = XLSX.utils.sheet_to_json(hoja, { defval: "" });
-
-    empleados = json.map(row => ({
-      nombre: row.Empleado || "",
-      picking: row.Picking || "",
-      empaque: row.Empaque || "",
-      montacargas: row.Montacargas || "",
-      cincoS: row["5S"] || ""
-    }));
-
-    renderTabla(); // Recarga la vista
-  };
-
-  reader.readAsArrayBuffer(archivo);
-}
-
 let empleados = [
-  { nombre: "Juan Pérez", picking: 2, empaque: 3, montacargas: 1, cincoS: 3 },
-  { nombre: "Ana López", picking: 3, empaque: 2, montacargas: 2, cincoS: 1 },
-  { nombre: "Carlos Méndez", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
+  { nombre: "Karly", picking: 2, empaque: 3, montacargas: 1, cincoS: 3 },
+  { nombre: "Elena", picking: 3, empaque: 2, montacargas: 2, cincoS: 1 },
+  { nombre: "Parereym", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
 ];
 
 const tabla = document.getElementById("skillTable");
@@ -76,9 +49,9 @@ function actualizarNivel(nombre, habilidad, nuevoValor) {
 function exportarExcel() {
   const hoja = empleados.map(e => ({
     Empleado: e.nombre,
-    Picking: e.picking,
-    Empaque: e.empaque,
-    Montacargas: e.montacargas,
+    Picking: e.rate,
+    Empaque: e.fsad,
+    Montacargas: e.induccion,
     '5S': e.cincoS
   }));
 
