@@ -1,7 +1,7 @@
 let empleados = [
-  { nombre: "Juan Pérez", picking: 2, empaque: 3, montacargas: 1, cincoS: 3 },
-  { nombre: "Ana López", picking: 3, empaque: 2, montacargas: 2, cincoS: 1 },
-  { nombre: "Carlos Méndez", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
+  { nombre: "Karly", picking: 4, empaque: 1, montacargas: 1, cincoS: 3 },
+  { nombre: "Elena", picking: 3, empaque: 2, montacargas: 2, cincoS: 1 },
+  { nombre: "pareyyem", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
 ];
 
 const tabla = document.getElementById("skillTable");
