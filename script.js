@@ -23,7 +23,7 @@ function renderTabla() {
     const fila = document.createElement("tr");
     fila.innerHTML = `
       <td>${emp.nombre}</td>
-      ${['picking', 'empaque', 'montacargas', 'cincoS'].map(hab => {
+      ${['STOW', 'FSAS', 'INDUCCION', 'cincoS'].map(hab => {
         if (filtroHab && filtroHab !== hab) return '<td></td>';
         const nivel = emp[hab];
         return `<td contenteditable onblur="actualizarNivel('${emp.nombre}', '${hab}', this.innerText.trim())" class="${getSkillClass(nivel)}">${nivel}</td>`;
