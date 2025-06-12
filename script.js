@@ -1,114 +1,95 @@
-let empleados = [
-  { nombre: "Karly", picking: 2, empaque: 3, montacargas: 1, cincoS: 3 },
-  { nombre: "Elena", picking: 3, empaque: 2, montacargas: 2, cincoS: 1 },
-  { nombre: "Parereym", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
-];
+// script.js
 
-const tabla = document.getElementById("skillTable");
+let empleados = [];
 
-function getSkillClass(n) {
-  if (n === 1) return 'skill-low';
-  if (n === 2) return 'skill-medium';
-  if (n === 3) return 'skill-high';
+function getSkillClass(nivel) {
+  switch ((nivel || '').toLowerCase()) {
+    case "alto": return "skill-high futuristic-glow";
+    case "medio": return "skill-medium futuristic-glow";
+    case "bajo": return "skill-low futuristic-glow";
+    default: return "";
+  }
 }
 
 function renderTabla() {
-  tabla.innerHTML = "";
   const filtroNombre = document.getElementById("filtroEmpleado").value.toLowerCase();
   const filtroHab = document.getElementById("filtroHabilidad").value;
+  const tbody = document.getElementById("skillTable");
+  const cards = document.getElementById("cardsContainer");
+  tbody.innerHTML = "";
+  cards.innerHTML = "";
 
-  empleados.forEach(emp => {
-    if (!emp.nombre.toLowerCase().includes(filtroNombre)) return;
-
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
+  empleados.filter(emp =>
+    emp.nombre.toLowerCase().includes(filtroNombre)
+  ).forEach(emp => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
       <td>${emp.nombre}</td>
-      ${['STOW', 'FSAS', 'INDUCCION', 'cincoS'].map(hab => {
-        if (filtroHab && filtroHab !== hab) return '<td></td>';
-        const nivel = emp[hab];
-        return `<td contenteditable onblur="actualizarNivel('${emp.nombre}', '${hab}', this.innerText.trim())" class="${getSkillClass(nivel)}">${nivel}</td>`;
-      }).join("")}
+      <td class="${getSkillClass(emp.picking)}">${emp.picking}</td>
+      <td class="${getSkillClass(emp.empaque)}">${emp.empaque}</td>
+      <td class="${getSkillClass(emp.montacargas)}">${emp.montacargas}</td>
+      <td class="${getSkillClass(emp.cincoS)}">${emp.cincoS}</td>
     `;
-    tabla.appendChild(fila);
+    tbody.appendChild(tr);
+
+    const habs = {
+      picking: emp.picking,
+      empaque: emp.empaque,
+      montacargas: emp.montacargas,
+      cincoS: emp.cincoS
+    };
+
+    const filtered = filtroHab && filtroHab in habs ? { [filtroHab]: habs[filtroHab] } : habs;
+
+    const liHabilidades = Object.entries(filtered)
+      .map(([k, v]) => `<li class="${getSkillClass(v)}">${k}: ${v}</li>`)
+      .join("");
+
+    const card = document.createElement("div");
+    card.className = "card futuristic-card";
+    card.innerHTML = `
+      <h3>${emp.nombre}</h3>
+      <ul>${liHabilidades}</ul>
+    `;
+    cards.appendChild(card);
   });
-}
-
-function actualizarNivel(nombre, habilidad, nuevoValor) {
-  const nivel = parseInt(nuevoValor);
-  if (![1,2,3].includes(nivel)) {
-    alert("Solo se permiten valores 1, 2 o 3");
-    renderTabla();
-    return;
-  }
-
-  const emp = empleados.find(e => e.nombre === nombre);
-  emp[habilidad] = nivel;
-  renderTabla();
-}
-
-function exportarExcel() {
-  const hoja = empleados.map(e => ({
-    Empleado: e.nombre,
-    Picking: e.rate,
-    Empaque: e.fsad,
-    Montacargas: e.induccion,
-    '5S': e.cincoS
-  }));
-
-  const ws = XLSX.utils.json_to_sheet(hoja);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Matriz");
-  XLSX.writeFile(wb, "matriz_habilidades.xlsx");
-}
-
-function toggleModoOscuro() {
-  document.body.classList.toggle("dark-mode");
 }
 
 document.getElementById("filtroEmpleado").addEventListener("input", renderTabla);
 document.getElementById("filtroHabilidad").addEventListener("change", renderTabla);
+document.getElementById("inputExcel").addEventListener("change", leerExcel);
 
-renderTabla();
-function renderTabla() {
-  const filtroNombre = document.getElementById("filtroEmpleado").value.toLowerCase();
-  const filtroHab = document.getElementById("filtroHabilidad").value;
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.createElement("button");
+  toggle.textContent = "🌙 Modo Oscuro";
+  toggle.className = "modo-toggle futuristic-button";
+  toggle.onclick = () => {
+    document.body.classList.toggle("dark-mode");
+  };
+  document.querySelector(".container").prepend(toggle);
+});
 
-  // Vista de escritorio (tabla)
-  tabla.innerHTML = "";
-  empleados.forEach(emp => {
-    if (!emp.nombre.toLowerCase().includes(filtroNombre)) return;
+function leerExcel(event) {
+  const archivo = event.target.files[0];
+  if (!archivo) return;
 
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
-      <td>${emp.nombre}</td>
-      ${['picking', 'empaque', 'montacargas', 'cincoS'].map(hab => {
-        if (filtroHab && filtroHab !== hab) return '<td></td>';
-        const nivel = emp[hab];
-        return `<td contenteditable onblur="actualizarNivel('${emp.nombre}', '${hab}', this.innerText.trim())" class="${getSkillClass(nivel)}">${nivel}</td>`;
-      }).join("")}
-    `;
-    tabla.appendChild(fila);
-  });
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+    const hoja = workbook.Sheets[workbook.SheetNames[0]];
+    const json = XLSX.utils.sheet_to_json(hoja, { defval: "" });
 
-  // Vista móvil (tarjetas)
-  const cardsContainer = document.getElementById("cardsContainer");
-  cardsContainer.innerHTML = "";
-  empleados.forEach(emp => {
-    if (!emp.nombre.toLowerCase().includes(filtroNombre)) return;
+    empleados = json.map(row => ({
+      nombre: row.Empleado || "",
+      picking: row.Picking || "",
+      empaque: row.Empaque || "",
+      montacargas: row.Montacargas || "",
+      cincoS: row["5S"] || ""
+    }));
 
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <h3>${emp.nombre}</h3>
-      <ul>
-        ${['picking', 'empaque', 'montacargas', 'cincoS'].map(hab => {
-          if (filtroHab && filtroHab !== hab) return '';
-          const nivel = emp[hab];
-          const habNombre = hab === "cincoS" ? "5S" : hab.charAt(0).toUpperCase() + hab.slice(1);
-          return `<li class="${getSkillClass(nivel)}">${habNombre}: ${nivel}</li>`;
-        }).join("")}
-      </ul>
-    `;
-    cardsContainer.appendChild(card);
-  });
+    renderTabla();
+  };
+
+  reader.readAsArrayBuffer(archivo);
 }
