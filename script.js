@@ -18,7 +18,8 @@ async function cargarDesdeGoogle() {
         fsaf: obj['Fsaf'] || '',
         cantidad: obj['Cantidad'] || '',
         horas: obj['Horas'] || '',
-        DPMO: obj['DPMO'] || '',
+        DPMO: obj['DPMO'] || ''
+        ,
       };
     });
 
