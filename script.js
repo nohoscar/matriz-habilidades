@@ -26,7 +26,8 @@ function renderTabla() {
       ${['picking', 'empaque', 'montacargas', 'cincoS'].map(hab => {
         if (filtroHab && filtroHab !== hab) return '<td></td>';
         const nivel = emp[hab];
-        return `<td contenteditable onblur="actualizarNivel('${emp.nombre}', '${hab}', this.innerText.trim())" class="${getSkillClass(nivel)}">${nivel}</td>`;
+        return return `<td class="${getSkillClass(nivel)}">${nivel}</td>`;
+
       }).join("")}
     `;
     tabla.appendChild(fila);
