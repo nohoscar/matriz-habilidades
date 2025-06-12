@@ -1,6 +1,6 @@
 let empleados = [
-  { nombre: "Karly", picking: 1, empaque: 1, montacargas: 1, cincoS: 3 },
-  { nombre: "Elena", picking: 2, empaque: 2, montacargas: 2, cincoS: 1 },
+  { nombre: "Karly", picking:1, empaque:1, montacargas:1, cincoS:3 },
+  { nombre: "Elena", picking:2, empaque:2, montacargas:2, cincoS:1 },
   { nombre: "pareyyem", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
 ];
 
@@ -50,9 +50,9 @@ function actualizarNivel(nombre, habilidad, nuevoValor) {
 function exportarExcel() {
   const hoja = empleados.map(e => ({
     Empleado: e.nombre,
-    stow: e.stow,
-    fsaf: e.fsaf,
-    buffer: e.buffer,
+    Stow: e.stow,
+    FSAF: e.FSAF,
+    BUFFER: e.BUFFER,
     '5S': e.cincoS
   }));
 
