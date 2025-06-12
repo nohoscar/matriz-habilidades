@@ -1,52 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Matriz de Habilidades</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desempeño Sorteo-DMY4</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Matriz de Habilidades - Almacén</h1>
-
+    <h1>Desempeño Sorteo-DMY4</h1>
     <div class="controls">
-      <input type="text" id="filtroEmpleado" placeholder="Buscar empleado..." />
+      <input type="text" id="filtroEmpleado" placeholder="Filtrar por empleado">
       <select id="filtroHabilidad">
         <option value="">Todas las habilidades</option>
-        <option value="picking">stow</option>
-        <option value="empaque">fsaf</option>
-        <option value="montacargas">buffer</option>
-        <option value="cincoS">5S</option>
+        <option value="Rate">Rate</option>
+        <option value="FSAF">FSAF</option>
+        <option value="Cantidad">Cantidad</option>
+        <option value="Horas">Horas</option>
       </select>
-      <button onclick="exportarExcel()">📥 Exportar a Excel</button>
-      <button onclick="toggleModoOscuro()">🌙 Modo Oscuro</button>
+      <input type="file" id="inputExcel" accept=".xlsx" />
     </div>
 
-    <table>
-      <div id="vistaEscritorio">
-  <table>
-    <thead>
-      <tr>
-        <th>Empleado</th>
-        <th>Picking</th>
-        <th>Empaque</th>
-        <th>Montacargas</th>
-        <th>5S</th>
-      </tr>
-    </thead>
-    <tbody id="skillTable"></tbody>
-  </table>
-</div>
+    <div id="vistaEscritorio">
+      <table>
+        <thead>
+          <tr>
+            <th>Empleado</th>
+            <th>Rate</th>
+            <th>FSAF</th>
+            <th>Cantidad</th>
+            <th>Horas</th>
+          </tr>
+        </thead>
+        <tbody id="skillTable"></tbody>
+      </table>
+    </div>
 
-<div id="vistaMovil" style="display: none;">
-  <div id="cardsContainer"></div>
-</div>
-
-    </table>
+    <div id="vistaMovil" style="display: none;">
+      <div id="cardsContainer"></div>
+    </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
