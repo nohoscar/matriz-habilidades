@@ -81,11 +81,11 @@ function leerExcel(event) {
     const json = XLSX.utils.sheet_to_json(hoja, { defval: "" });
 
     empleados = json.map(row => ({
-      nombre: row.Empleado || "",
-      picking: row.Picking || "",
-      empaque: row.Empaque || "",
-      montacargas: row.Montacargas || "",
-      cincoS: row["5S"] || ""
+      nombre:row.Empleado || "",
+      Rate:row.Rate || "",
+      FSAF:row.FSAF || "",
+      Cantidad:row.Cantidad || "",
+      Horas: row["5S"] || ""
     }));
 
     renderTabla();
