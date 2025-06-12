@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Desempeño de sorteo</title>
+  <title>Matriz de Habilidades</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Desempeño de sorteo - DMY4</h1>
+    <h1>Matriz de Habilidades - Almacén</h1>
 
     <div class="controls">
       <input type="text" id="filtroEmpleado" placeholder="Buscar empleado..." />
       <select id="filtroHabilidad">
         <option value="">Todas las habilidades</option>
-        <option value="stow">stow</option>
-        <option value="fsaf">fsaf</option>
-        <option value="buffer">buffer</option>
+        <option value="picking">stow</option>
+        <option value="empaque">fsaf</option>
+        <option value="montacargas">buffer</option>
         <option value="cincoS">5S</option>
       </select>
       <button onclick="exportarExcel()">📥 Exportar a Excel</button>
@@ -29,9 +29,9 @@
     <thead>
       <tr>
         <th>Empleado</th>
-        <th>stow</th>
-        <th>fsaf</th>
-        <th>buffer</th>
+        <th>Picking</th>
+        <th>Empaque</th>
+        <th>Montacargas</th>
         <th>5S</th>
       </tr>
     </thead>

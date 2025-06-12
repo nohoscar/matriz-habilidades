@@ -1,7 +1,7 @@
 let empleados = [
-  { nombre: "Karly", picking:1, empaque:1, montacargas:1, cincoS:3 },
-  { nombre: "Elena", picking:2, empaque:2, montacargas:2, cincoS:1 },
-  { nombre: "pareyyem", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
+  { nombre: "Juan Pérez", picking: 2, empaque: 3, montacargas: 1, cincoS: 3 },
+  { nombre: "Ana López", picking: 3, empaque: 2, montacargas: 2, cincoS: 1 },
+  { nombre: "Carlos Méndez", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
 ];
 
 const tabla = document.getElementById("skillTable");
@@ -26,8 +26,7 @@ function renderTabla() {
       ${['picking', 'empaque', 'montacargas', 'cincoS'].map(hab => {
         if (filtroHab && filtroHab !== hab) return '<td></td>';
         const nivel = emp[hab];
-        return return `<td class="${getSkillClass(nivel)}">${nivel}</td>`;
-
+        return `<td contenteditable onblur="actualizarNivel('${emp.nombre}', '${hab}', this.innerText.trim())" class="${getSkillClass(nivel)}">${nivel}</td>`;
       }).join("")}
     `;
     tabla.appendChild(fila);
@@ -50,9 +49,9 @@ function actualizarNivel(nombre, habilidad, nuevoValor) {
 function exportarExcel() {
   const hoja = empleados.map(e => ({
     Empleado: e.nombre,
-    Stow: e.stow,
-    FSAF: e.FSAF,
-    BUFFER: e.BUFFER,
+    Picking: e.picking,
+    Empaque: e.empaque,
+    Montacargas: e.montacargas,
     '5S': e.cincoS
   }));
 
