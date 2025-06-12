@@ -18,6 +18,7 @@ async function cargarDesdeGoogle() {
         fsaf: obj['Fsaf'] || '',
         cantidad: obj['Cantidad'] || '',
         horas: obj['Horas'] || ''
+        DPMO: obj['DPMO'] || ''
       };
     });
 
@@ -62,6 +63,7 @@ function renderTabla(data) {
       <td>${emp.fsaf}</td>
       <td>${emp.cantidad}</td>
       <td>${emp.horas}</td>
+      <td>${emp.DPMO}</td>
     `;
     tbody.appendChild(tr);
   });
