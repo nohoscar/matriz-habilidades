@@ -1,5 +1,5 @@
 let empleados = [
-  { nombre: "Karly", picking: 4, empaque: 1, montacargas: 1, cincoS: 3 },
+  { nombre: "Karly", picking: 3, empaque: 1, montacargas: 1, cincoS: 3 },
   { nombre: "Elena", picking: 3, empaque: 2, montacargas: 2, cincoS: 1 },
   { nombre: "pareyyem", picking: 1, empaque: 1, montacargas: 3, cincoS: 2 },
 ];
