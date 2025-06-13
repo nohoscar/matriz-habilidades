@@ -17,9 +17,7 @@ async function cargarDesdeGoogle() {
         rate: obj['Rate'] || '',
         fsaf: obj['Fsaf'] || '',
         cantidad: obj['Cantidad'] || '',
-        horas: obj['Horas'] || '',
-        DPMO: obj['DPMO'] || ''
-        ,
+        horas: obj['Horas'] || ''
       };
     });
 
@@ -63,8 +61,7 @@ function renderTabla(data) {
       <td>${emp.rate}</td>
       <td>${emp.fsaf}</td>
       <td>${emp.cantidad}</td>
-      <td>${emp.horas}</td> 
-      <td>${emp.DPMO}</td>
+      <td>${emp.horas}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -85,7 +82,6 @@ function renderTarjetas(data) {
         <li><strong>Fsaf:</strong> ${emp.fsaf}</li>
         <li><strong>Cantidad:</strong> ${emp.cantidad}</li>
         <li><strong>Horas:</strong> ${emp.horas}</li>
-        <li><strong>DPMO:</strong> ${emp.DPMO}</li>
       </ul>
     `;
     container.appendChild(card);
@@ -102,4 +98,3 @@ document.getElementById('descargarDatos').addEventListener('click', cargarDesdeG
 document.getElementById('filtroEmpleado').addEventListener('input', renderVista);
 document.getElementById('filtroHabilidad').addEventListener('change', renderVista);
 window.addEventListener('resize', renderVista);
-

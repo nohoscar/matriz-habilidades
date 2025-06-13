@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon Login - Matriz DMY4</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #f3f3f3;
+      font-family: Arial, sans-serif;
+    }
+    .login-container {
+      max-width: 350px;
+      margin: 80px auto;
+      padding: 20px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .login-container img {
+      display: block;
+      margin: 0 auto 20px;
+      width: 100px;
+    }
+    .login-container h2 {
+      font-weight: normal;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #a6a6a6;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      background: #f0c14b;
+      border: 1px solid #a88734;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #555;
+    }
+    #mensajeError {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+    <h2>Inicia sesión</h2>
+    <form onsubmit="return iniciarSesion(event)">
+      <input type="email" id="correo" placeholder="Correo electrónico" required />
+      <input type="password" id="clave" placeholder="Contraseña" required />
+      <button type="submit">Continuar</button>
+    </form>
+    <p id="mensajeError"></p>
+    <div class="login-footer">Amazon Interno - Matriz DMY4</div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script>
+ // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBBeAZPdc_ZVIU4DxrOvGTLS94fn2k93QY",
+  authDomain: "desempe-2d564.firebaseapp.com",
+  projectId: "desempe-2d564",
+  storageBucket: "desempe-2d564.firebasestorage.app",
+  messagingSenderId: "36163661484",
+  appId: "1:36163661484:web:8bf1c053f5368c5bfef909",
+  measurementId: "G-4JK2HNPGDY"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+    firebase.initializeApp(firebaseConfig);
+
+    function iniciarSesion(e) {
+      e.preventDefault();
+      const email = document.getElementById("correo").value;
+      const password = document.getElementById("clave").value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          document.getElementById("mensajeError").innerText = error.message;
+        });
+    }
+  </script>
+</body>
+</html>
